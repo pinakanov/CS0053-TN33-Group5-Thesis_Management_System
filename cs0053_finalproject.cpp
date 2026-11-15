@@ -36,6 +36,8 @@ void checkStatus();
 void reviewTheses();
 //2nd commit - gila
 void approveThesis();
+//3rd commit - gila
+void rejectThesis();
 
 void studentMenu()
 {
@@ -197,6 +199,31 @@ void approveThesis()
             t.status = "Approved";
 
             cout << "\nThesis Approved!\n";
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nThesis not found.\n";
+}
+
+//3rd commit - gila
+void rejectThesis()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    bool found = false;
+
+    for(auto& t : theses)
+    {
+        if(t.thesisID == id)
+        {
+            t.status = "Rejected";
+
+            cout << "\nThesis Rejected!\n";
             found = true;
         }
     }
