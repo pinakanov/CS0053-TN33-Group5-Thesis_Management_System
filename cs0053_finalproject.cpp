@@ -38,6 +38,8 @@ void reviewTheses();
 void approveThesis();
 //3rd commit - gila
 void rejectThesis();
+//4th commit - gila
+void addComment();
 
 void studentMenu()
 {
@@ -224,6 +226,34 @@ void rejectThesis()
             t.status = "Rejected";
 
             cout << "\nThesis Rejected!\n";
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nThesis not found.\n";
+}
+
+/4th commit - gila
+void addComment()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    cin.ignore();
+
+    bool found = false;
+
+    for(auto& t : theses)
+    {
+        if(t.thesisID == id)
+        {
+            cout << "Enter Adviser Comment: ";
+            getline(cin, t.comments);
+
+            cout << "\nComment Added!\n";
             found = true;
         }
     }
