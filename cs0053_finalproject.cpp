@@ -41,6 +41,10 @@ void rejectThesis();
 //4th commit - gila
 void addComment();
 
+//1st commit - valencia
+void viewAcceptedTheses();
+void viewRejectedTheses();
+
 void studentMenu()
 {
     int choice;
@@ -234,7 +238,7 @@ void rejectThesis()
         cout << "\nThesis not found.\n";
 }
 
-/4th commit - gila
+//4th commit - gila
 void addComment()
 {
     string id;
@@ -260,6 +264,53 @@ void addComment()
 
     if(!found)
         cout << "\nThesis not found.\n";
+}
+
+//1st commit - valencia
+void viewAcceptedTheses()
+{
+    cout << "\n===== ACCEPTED THESES =====\n";
+
+    bool found = false;
+
+    for(const auto& t : theses)
+    {
+        if(t.status == "Approved")
+        {
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
+            cout << "\nStudent: " << t.studentName;
+            cout << "\n---------------------";
+
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nNo accepted theses.\n";
+}
+
+void viewRejectedTheses()
+{
+    cout << "\n===== REJECTED THESES =====\n";
+
+    bool found = false;
+
+    for(const auto& t : theses)
+    {
+        if(t.status == "Rejected")
+        {
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
+            cout << "\nStudent: " << t.studentName;
+            cout << "\n---------------------";
+
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nNo rejected theses.\n";
 }
 
 int main()
