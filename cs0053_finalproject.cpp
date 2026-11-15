@@ -23,6 +23,9 @@ void viewProposal();
 //2nd commit 
 void checkStatus();
 
+//1st commit - gila
+void reviewTheses();
+
 
 void studentMenu()
 {
@@ -134,6 +137,27 @@ void checkStatus()
 
     if(!found)
         cout << "\nThesis not found.\n";
+}
+
+//1st commit - gila
+void reviewTheses()
+{
+    if(theses.empty())
+    {
+        cout << "\nNo thesis records available.\n";
+        return;
+    }
+
+    cout << "\n===== THESIS LIST =====\n";
+
+    for(const auto& t : theses)
+    {
+        cout << "\nID: " << t.thesisID;
+        cout << "\nStudent: " << t.studentName;
+        cout << "\nTitle: " << t.title;
+        cout << "\nStatus: " << t.status;
+        cout << "\n----------------------";
+    }
 }
 
 int main()
