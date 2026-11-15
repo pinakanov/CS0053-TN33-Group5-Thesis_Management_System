@@ -23,6 +23,9 @@ void viewProposal();
 //2nd commit 
 void checkStatus();
 
+//1st commit - gila
+void reviewTheses();
+
 
 void studentMenu()
 {
