@@ -51,6 +51,8 @@ void studentMenu()
             break;
             case 2: viewProposal();
             break;
+            case 3: editProposal();
+            break;
             //just add more cases here
             case 6: checkStatus();
             break;
@@ -139,25 +141,34 @@ void checkStatus()
         cout << "\nThesis not found.\n";
 }
 
-//1st commit - gila
-void reviewTheses()
+// MEMBER 2 (Maintenance Module)
+
+// 1st commit
+void editProposal()
 {
-    if(theses.empty())
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    cin.ignore();
+
+    bool found = false;
+
+    for(auto& t : theses)
     {
-        cout << "\nNo thesis records available.\n";
-        return;
+        if(t.thesisID == id)
+        {
+            cout << "\nEnter New Thesis Title: ";
+            getline(cin, t.title);
+
+            cout << "\nUpdated Successfully!\n";
+            found = true;
+        }
     }
 
-    cout << "\n===== THESIS LIST =====\n";
-
-    for(const auto& t : theses)
-    {
-        cout << "\nID: " << t.thesisID;
-        cout << "\nStudent: " << t.studentName;
-        cout << "\nTitle: " << t.title;
-        cout << "\nStatus: " << t.status;
-        cout << "\n----------------------";
-    }
+    if(!found)
+        cout << "\nThesis not found.\n";
 }
 
 int main()
