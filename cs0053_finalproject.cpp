@@ -48,6 +48,8 @@ void studentMenu()
             break;
             case 2: viewProposal();
             break;
+            case 3: editProposal();
+            break;
             //just add more cases here
             case 6: checkStatus();
             break;
@@ -128,6 +130,36 @@ void checkStatus()
         if(t.thesisID == id)
         {
             cout << "\nCurrent Status: " << t.status << endl;
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nThesis not found.\n";
+}
+
+// MEMBER 2 (Maintenance Module)
+
+// 1st commit
+void editProposal()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    cin.ignore();
+
+    bool found = false;
+
+    for(auto& t : theses)
+    {
+        if(t.thesisID == id)
+        {
+            cout << "\nEnter New Thesis Title: ";
+            getline(cin, t.title);
+
+            cout << "\nUpdated Successfully!\n";
             found = true;
         }
     }
