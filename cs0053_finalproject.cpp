@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -15,6 +16,14 @@ struct Thesis
     string comments;
 };
 vector<Thesis> theses;
+int nextThesisNumber = 1;
+
+string generateThesisID()
+{
+    ostringstream ss;
+    ss << "TH-" << setfill('0') << setw(3) << nextThesisNumber++;
+    return ss.str();
+}
 
 // first commit features.
 void submitProposal();
@@ -56,6 +65,8 @@ void studentMenu()
             break;
             case 2: viewProposal();
             break;
+            case 3: editProposal();
+            break;
             //just add more cases here
             case 6: checkStatus();
             break;
@@ -70,12 +81,11 @@ void submitProposal()
 {
     Thesis t;
 
-    cout << "\nEnter Thesis ID: ";
-    cin >> t.thesisID;
+    t.thesisID = generateThesisID();
 
-    cin.ignore();
+    cin.ignore();  
 
-    cout << "Student Name: ";
+    cout << "\nStudent Name: ";
     getline(cin, t.studentName);
 
     cout << "Thesis Title: ";
@@ -88,8 +98,8 @@ void submitProposal()
     t.comments = "No comments yet";
 
     theses.push_back(t);
-
-    cout << "\nProposal submitted successfully!\n";
+    cout << "\nYour Thesis ID is: " << t.thesisID << "\n";
+    cout << "\nProposal submitted successfully!";
 }
 
 void viewProposal()
@@ -144,25 +154,34 @@ void checkStatus()
         cout << "\nThesis not found.\n";
 }
 
-//1st commit - gila
-void reviewTheses()
+// MEMBER 2 (Maintenance Module)
+
+// 1st commit
+void editProposal()
 {
-    if(theses.empty())
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    cin.ignore();
+
+    bool found = false;
+
+    for(auto& t : theses)
     {
-        cout << "\nNo thesis records available.\n";
-        return;
+        if(t.thesisID == id)
+        {
+            cout << "\nEnter New Thesis Title: ";
+            getline(cin, t.title);
+
+            cout << "\nUpdated Successfully!\n";
+            found = true;
+        }
     }
 
-    cout << "\n===== THESIS LIST =====\n";
-
-    for(const auto& t : theses)
-    {
-        cout << "\nID: " << t.thesisID;
-        cout << "\nStudent: " << t.studentName;
-        cout << "\nTitle: " << t.title;
-        cout << "\nStatus: " << t.status;
-        cout << "\n----------------------";
-    }
+    if(!found)
+        cout << "\nThesis not found.\n";
 }
 
 //2nd commit - gila
