@@ -25,7 +25,8 @@ void checkStatus();
 
 //1st commit - gila
 void reviewTheses();
-
+//2nd commit - gila
+void approveThesis();
 
 void studentMenu()
 {
@@ -163,6 +164,31 @@ void editProposal()
             getline(cin, t.title);
 
             cout << "\nUpdated Successfully!\n";
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nThesis not found.\n";
+}
+
+//2nd commit - gila
+void approveThesis()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    bool found = false;
+
+    for(auto& t : theses)
+    {
+        if(t.thesisID == id)
+        {
+            t.status = "Approved";
+
+            cout << "\nThesis Approved!\n";
             found = true;
         }
     }
