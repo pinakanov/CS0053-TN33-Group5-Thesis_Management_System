@@ -72,9 +72,10 @@ void viewProposal();
 //2nd commit
 void checkStatus();
 
-// MEMBER 2 (Maintenance Module)
+// Ibana (Maintenance Module)
 void editProposal(); // 1st commit
 void deleteProposal(); // 2nd commit
+void submitRevision(); // 3rd commit
 
 //1st commit - gila
 void reviewTheses();
@@ -139,6 +140,7 @@ void studentMenu()
             case 2: viewProposal();   break;
             case 3: editProposal();   break;
             case 4: deleteProposal(); break;
+            case 5: submitRevision(); break;
             case 6: checkStatus();    break;
             case 7: break;
             default: cout << "\nInvalid or not yet available.\n";
@@ -252,6 +254,31 @@ void deleteProposal()
             found = true;
             cout << "\nProposal deleted successfully!\n";
             break;
+        }
+    }
+
+    if(!found)
+        cout << "\nThesis not found.\n";
+}
+
+// 3rd commit - Ibana
+void submitRevision()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    bool found = false;
+
+    for(auto& t : theses)
+    {
+        if(t.thesisID == id)
+        {
+            t.status = "Pending";
+
+            cout << "\nRevision submitted successfully.\n";
+            found = true;
         }
     }
 
