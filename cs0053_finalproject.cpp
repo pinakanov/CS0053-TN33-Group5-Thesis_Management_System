@@ -89,7 +89,6 @@ void saveTheses()
     }
 
     out << nextThesisNumber << "\n" << theses.size() << endl;
-    out << "=================================================" << endl;
 
     for (const auto& t : theses)
     {
