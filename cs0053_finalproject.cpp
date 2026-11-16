@@ -47,6 +47,8 @@ void viewRejectedTheses();
 //2nd commit - valencia
 void searchThesis();
 void sortByTitle();
+//3rd commit - valencia
+void displayStatistics();
 
 void studentMenu()
 {
@@ -354,6 +356,30 @@ void sortByTitle()
         });
 
     cout << "\nSuccessfully Sorted By Title.\n";
+}
+
+//3rd commit - valencia
+void displayStatistics()
+{
+    int approved = 0;
+    int rejected = 0;
+    int pending = 0;
+
+    for(const auto& t : theses)
+    {
+        if(t.status == "Approved")
+            approved++;
+        else if(t.status == "Rejected")
+            rejected++;
+        else
+            pending++;
+    }
+
+    cout << "\n===== STATISTICS =====";
+    cout << "\nApproved : " << approved;
+    cout << "\nRejected : " << rejected;
+    cout << "\nPending  : " << pending;
+    cout << "\nTotal    : " << theses.size() << endl;
 }
 
 int main()
