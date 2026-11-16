@@ -44,6 +44,9 @@ void addComment();
 //1st commit - valencia
 void viewAcceptedTheses();
 void viewRejectedTheses();
+//2nd commit - valencia
+void searchThesis();
+void sortByTitle();
 
 void studentMenu()
 {
@@ -311,6 +314,46 @@ void viewRejectedTheses()
 
     if(!found)
         cout << "\nNo rejected theses.\n";
+}
+
+//2nd commit - valencia
+void searchThesis()
+{
+    cin.ignore();
+
+    string keyword;
+
+    cout << "\nEnter Keyword: ";
+    getline(cin, keyword);
+
+    bool found = false;
+
+    for(const auto& t : theses)
+    {
+        if(t.title.find(keyword) != string::npos)
+        {
+            cout << "\nFound Thesis:";
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
+            cout << "\nStudent: " << t.studentName;
+
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nNo matching thesis found.\n";
+}
+
+void sortByTitle()
+{
+    sort(theses.begin(), theses.end(),
+        [](const Thesis& a, const Thesis& b)
+        {
+            return a.title < b.title;
+        });
+
+    cout << "\nSuccessfully Sorted By Title.\n";
 }
 
 int main()
