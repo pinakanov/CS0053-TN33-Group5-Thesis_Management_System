@@ -72,8 +72,10 @@ void viewProposal();
 //2nd commit
 void checkStatus();
 
-// MEMBER 2 (Maintenance Module)
-void editProposal();
+// Ibana (Maintenance Module)
+void editProposal(); // 1st commit
+void deleteProposal(); // 2nd commit
+void submitRevision(); // 3rd commit
 
 //1st commit - gila
 void reviewTheses();
@@ -137,7 +139,8 @@ void studentMenu()
             case 1: submitProposal(); break;
             case 2: viewProposal();   break;
             case 3: editProposal();   break;
-            //just add more cases here
+            case 4: deleteProposal(); break;
+            case 5: submitRevision(); break;
             case 6: checkStatus();    break;
             case 7: break;
             default: cout << "\nInvalid or not yet available.\n";
@@ -218,7 +221,7 @@ void checkStatus()
         cout << "\nThesis not found.\n";
 }
 
-// 1st commit
+// 1st commit - Ibana
 void editProposal()
 {
     string id = readLine("\nEnter Thesis ID: ");
@@ -229,6 +232,57 @@ void editProposal()
         cout << "\nUpdated Successfully!\n";
     }
     else
+        cout << "\nThesis not found.\n";
+}
+
+// 2nd commit - Ibana
+void deleteProposal()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    bool found = false;
+
+    for(int i = 0; i < theses.size(); i++)
+    {
+        if(theses[i].thesisID == id)
+        {
+            theses.erase(theses.begin() + i);
+
+            found = true;
+            cout << "\nProposal deleted successfully!\n";
+            break;
+        }
+    }
+
+    if(!found)
+        cout << "\nThesis not found.\n";
+}
+
+// 3rd commit - Ibana
+void submitRevision()
+{
+    string id;
+
+    cout << "\nEnter Thesis ID: ";
+    cin >> id;
+
+    bool found = false;
+
+    for(auto& t : theses)
+    {
+        if(t.thesisID == id)
+        {
+            t.status = "Pending";
+
+            cout << "\nRevision submitted successfully.\n";
+            found = true;
+        }
+    }
+
+    if(!found)
         cout << "\nThesis not found.\n";
 }
 
