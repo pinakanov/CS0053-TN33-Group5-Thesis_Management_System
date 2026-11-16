@@ -23,6 +23,7 @@ struct Thesis
 
 vector<Thesis> theses;
 int nextThesisNumber = 1;
+const string DATA_FILE = "theses.txt";
 
 string generateThesisID()
 {
@@ -76,19 +77,17 @@ string toLower(string s)
     return s;
 }
 
-const string DATA_FILE = "theses.txt";
-
+// for saving thesis to txt file 
 void saveTheses()
 {
     ofstream out(DATA_FILE);
-
     if (!out)
     {
         cout << "\nWarning: could not save data to " << DATA_FILE << ".\n";
         return;
     }
 
-    out << nextThesisNumber << "\n" << theses.size() << endl;
+    out << nextThesisNumber << "\n" << theses.size() << "\n";
 
     for (const auto& t : theses)
     {
@@ -104,9 +103,8 @@ void saveTheses()
 void loadTheses()
 {
     ifstream in(DATA_FILE);
-
     if (!in)
-        return;   
+        return;
 
     int next;
     size_t count;
@@ -123,18 +121,16 @@ void loadTheses()
     for (size_t i = 0; i < count; i++)
     {
         Thesis t;
-
         if (!getline(in, t.thesisID)    ||
             !getline(in, t.studentName) ||
-            !getline(in, t.title)       ||
+            !getline(in, t.title)  ||
             !getline(in, t.adviserName) ||
-            !getline(in, t.status)      ||
+            !getline(in, t.status)  ||
             !getline(in, t.comments))
         {
             cout << "\nWarning: " << DATA_FILE << " is incomplete. Starting empty.\n";
             return;
         }
-
         loaded.push_back(t);
     }
 
@@ -143,50 +139,38 @@ void loadTheses()
 
     cout << "\nLoaded " << theses.size() << " thesis record(s).\n";
 }
-// first commit features.
-void submitProposal();
-void viewProposal();
 
-//2nd commit
-void checkStatus();
-
-// Ibana (Maintenance Module)
-void editProposal();    // 1st commit
-void deleteProposal();  // 2nd commit
-void submitRevision();  // 3rd commit
-
-//1st commit - gila
-void reviewTheses();
-//2nd commit - gila
-void approveThesis();
-//3rd commit - gila
-void rejectThesis();
-//4th commit - gila
-void addComment();
-
-//1st commit - valencia
-void viewAcceptedTheses();
-void viewRejectedTheses();
-//2nd commit - valencia
-void searchThesis();
-void sortByTitle();
-//3rd commit - valencia
-void displayStatistics();
-
+// all of the functions
 void studentMenu();
 void adviserMenu();
 void repositoryMenu();
 
+void submitProposal();
+void viewProposal();
+void editProposal();
+void deleteProposal();
+void submitRevision();
+void checkStatus();
+
+void reviewTheses();
+void approveThesis();
+void rejectThesis();
+void addComment();
+
+void viewAcceptedTheses();
+void viewRejectedTheses();
+void searchThesis();
+void sortByTitle();
+void displayStatistics();
 
 int main()
 {
     int choice;
-
     loadTheses();
 
     do
     {
-        cout << "\n   THESIS MANAGEMENT SYSTEM";
+        cout << "\n===== THESIS MANAGEMENT SYSTEM =====";
         cout << "\n1. Student";
         cout << "\n2. Adviser";
         cout << "\n3. Thesis Repository";
@@ -196,9 +180,9 @@ int main()
 
         switch (choice)
         {
-            case 1: studentMenu();    break;
-            case 2: adviserMenu();    break;
-            case 3: repositoryMenu(); break;
+            case 1: studentMenu();break;
+            case 2: adviserMenu(); break;
+            case 3: repositoryMenu();break;
             case 4: cout << "\nThank you for using the system.\n"; break;
             default: cout << "\nInvalid choice.\n";
         }
@@ -210,10 +194,9 @@ int main()
 void studentMenu()
 {
     int choice;
-
     do
     {
-        cout << "\n\n STUDENT MENU ";
+        cout << "\n\n===== STUDENT MENU =====";
         cout << "\n1. Submit Proposal";
         cout << "\n2. View Proposal";
         cout << "\n3. Edit Proposal";
@@ -227,11 +210,11 @@ void studentMenu()
         switch (choice)
         {
             case 1: submitProposal(); break;
-            case 2: viewProposal();   break;
-            case 3: editProposal();   break;
-            case 4: deleteProposal(); break;
-            case 5: submitRevision(); break;
-            case 6: checkStatus();    break;
+            case 2: viewProposal();break;
+            case 3: editProposal();break;
+            case 4: deleteProposal();break;
+            case 5: submitRevision();break;
+            case 6: checkStatus(); break;
             case 7: break;
             default: cout << "\nInvalid choice.\n";
         }
@@ -243,7 +226,6 @@ void studentMenu()
 void adviserMenu()
 {
     int choice;
-
     do
     {
         cout << "\n\n===== ADVISER MENU =====";
@@ -259,8 +241,8 @@ void adviserMenu()
         {
             case 1: reviewTheses();  break;
             case 2: approveThesis(); break;
-            case 3: rejectThesis();  break;
-            case 4: addComment();    break;
+            case 3: rejectThesis(); break;
+            case 4: addComment(); break;
             case 5: break;
             default: cout << "\nInvalid choice.\n";
         }
@@ -272,7 +254,6 @@ void adviserMenu()
 void repositoryMenu()
 {
     int choice;
-
     do
     {
         cout << "\n\n===== THESIS REPOSITORY =====";
@@ -289,9 +270,9 @@ void repositoryMenu()
         {
             case 1: viewAcceptedTheses(); break;
             case 2: viewRejectedTheses(); break;
-            case 3: searchThesis();       break;
-            case 4: sortByTitle();        break;
-            case 5: displayStatistics();  break;
+            case 3: searchThesis(); break;
+            case 4: sortByTitle(); break;
+            case 5: displayStatistics(); break;
             case 6: break;
             default: cout << "\nInvalid choice.\n";
         }
@@ -300,15 +281,15 @@ void repositoryMenu()
     } while (choice != 6);
 }
 
+// Student Modules
 void submitProposal()
 {
     Thesis t;
-
     t.studentName = readLine("\nStudent Name: ");
     t.title       = readLine("Thesis Title: ");
     t.adviserName = readLine("Adviser Name: ");
 
-    t.thesisID = generateThesisID();   // generate only after input succeeds
+    t.thesisID = generateThesisID();
     t.status   = "Pending";
     t.comments = "No comments yet";
 
@@ -326,9 +307,9 @@ void viewProposal()
         cout << "\n--------------------------";
         cout << "\nThesis ID: " << t->thesisID;
         cout << "\nStudent: "   << t->studentName;
-        cout << "\nTitle: "     << t->title;
-        cout << "\nAdviser: "   << t->adviserName;
-        cout << "\nStatus: "    << t->status;
+        cout << "\nTitle: " << t->title;
+        cout << "\nAdviser: " << t->adviserName;
+        cout << "\nStatus: "  << t->status;
         cout << "\nComments: "  << t->comments;
         cout << "\n--------------------------\n";
     }
@@ -336,16 +317,6 @@ void viewProposal()
         cout << "\nThesis not found.\n";
 }
 
-void checkStatus()
-{
-    string id = readLine("\nEnter Thesis ID: ");
-
-    if (Thesis* t = findThesis(id))
-        cout << "\nCurrent Status: " << t->status << endl;
-    else
-        cout << "\nThesis not found.\n";
-}
-// 1st commit - Ibana
 void editProposal()
 {
     string id = readLine("\nEnter Thesis ID: ");
@@ -359,7 +330,6 @@ void editProposal()
         cout << "\nThesis not found.\n";
 }
 
-// 2nd commit - Ibana
 void deleteProposal()
 {
     string id = readLine("\nEnter Thesis ID: ");
@@ -376,7 +346,6 @@ void deleteProposal()
         cout << "\nThesis not found.\n";
 }
 
-// 3rd commit - Ibana
 void submitRevision()
 {
     string id = readLine("\nEnter Thesis ID: ");
@@ -390,7 +359,17 @@ void submitRevision()
         cout << "\nThesis not found.\n";
 }
 
-//1st commit - gila
+void checkStatus()
+{
+    string id = readLine("\nEnter Thesis ID: ");
+
+    if (Thesis* t = findThesis(id))
+        cout << "\nCurrent Status: " << t->status << endl;
+    else
+        cout << "\nThesis not found.\n";
+}
+
+// Adviser Modules
 void reviewTheses()
 {
     if (theses.empty())
@@ -403,15 +382,15 @@ void reviewTheses()
 
     for (const auto& t : theses)
     {
-        cout << "\nID: "      << t.thesisID;
+        cout << "\nID: "  << t.thesisID;
         cout << "\nStudent: " << t.studentName;
-        cout << "\nTitle: "   << t.title;
-        cout << "\nStatus: "  << t.status;
+        cout << "\nTitle: " << t.title;
+        cout << "\nStatus: "<< t.status;
+        cout << "\nComments: "<< t.comments;
         cout << "\n----------------------\n";
     }
 }
 
-//2nd commit - gila
 void approveThesis()
 {
     string id = readLine("\nEnter Thesis ID: ");
@@ -425,118 +404,7 @@ void approveThesis()
         cout << "\nThesis not found.\n";
 }
 
-//1st commit - valencia
-void viewAcceptedTheses()
-{
-    cout << "\n===== ACCEPTED THESES =====\n";
-
-    bool found = false;
-
-    for(const auto& t : theses)
-    {
-        if(t.status == "Approved")
-        {
-            cout << "\nID: " << t.thesisID;
-            cout << "\nTitle: " << t.title;
-            cout << "\nStudent: " << t.studentName;
-            cout << "\n---------------------";
-
-            found = true;
-        }
-    }
-
-    if(!found)
-        cout << "\nNo accepted theses.\n";
-}
-
-void viewRejectedTheses()
-{
-    cout << "\n===== REJECTED THESES =====\n";
-
-    bool found = false;
-
-    for(const auto& t : theses)
-    {
-        if(t.status == "Rejected")
-        {
-            cout << "\nID: " << t.thesisID;
-            cout << "\nTitle: " << t.title;
-            cout << "\nStudent: " << t.studentName;
-            cout << "\n---------------------";
-
-            found = true;
-        }
-    }
-
-    if(!found)
-        cout << "\nNo rejected theses.\n";
-}
-
-//2nd commit - valencia
-void searchThesis()
-{
-    cin.ignore();
-
-    string keyword;
-
-    cout << "\nEnter Keyword: ";
-    getline(cin, keyword);
-
-    bool found = false;
-
-    for(const auto& t : theses)
-    {
-        if(t.title.find(keyword) != string::npos)
-        {
-            cout << "\nFound Thesis:";
-            cout << "\nID: " << t.thesisID;
-            cout << "\nTitle: " << t.title;
-            cout << "\nStudent: " << t.studentName;
-
-            found = true;
-        }
-    }
-
-    if(!found)
-        cout << "\nNo matching thesis found.\n";
-}
-
-void sortByTitle()
-{
-    sort(theses.begin(), theses.end(),
-        [](const Thesis& a, const Thesis& b)
-        {
-            return a.title < b.title;
-        });
-
-    cout << "\nSuccessfully Sorted By Title.\n";
-}
-
-//3rd commit - valencia
-void displayStatistics()
-{
-    int approved = 0;
-    int rejected = 0;
-    int pending = 0;
-
-    for(const auto& t : theses)
-    {
-        if(t.status == "Approved")
-            approved++;
-        else if(t.status == "Rejected")
-            rejected++;
-        else
-            pending++;
-    }
-
-    cout << "\n===== STATISTICS =====";
-    cout << "\nApproved : " << approved;
-    cout << "\nRejected : " << rejected;
-    cout << "\nPending  : " << pending;
-    cout << "\nTotal    : " << theses.size() << endl;
-}
-
-int main()
+void rejectThesis()
 {
     string id = readLine("\nEnter Thesis ID: ");
 
@@ -549,7 +417,6 @@ int main()
         cout << "\nThesis not found.\n";
 }
 
-//4th commit - gila
 void addComment()
 {
     string id = readLine("\nEnter Thesis ID: ");
@@ -562,22 +429,21 @@ void addComment()
     else
         cout << "\nThesis not found.\n";
 }
-//1st commit - valencia
+
+// Repository Modules
 void viewAcceptedTheses()
 {
     cout << "\n===== ACCEPTED THESES =====\n";
-
     bool found = false;
 
     for (const auto& t : theses)
     {
         if (t.status == "Approved")
         {
-            cout << "\nID: "      << t.thesisID;
-            cout << "\nTitle: "   << t.title;
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
             cout << "\nStudent: " << t.studentName;
             cout << "\n---------------------\n";
-
             found = true;
         }
     }
@@ -589,18 +455,16 @@ void viewAcceptedTheses()
 void viewRejectedTheses()
 {
     cout << "\n===== REJECTED THESES =====\n";
-
     bool found = false;
 
     for (const auto& t : theses)
     {
         if (t.status == "Rejected")
         {
-            cout << "\nID: "      << t.thesisID;
-            cout << "\nTitle: "   << t.title;
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
             cout << "\nStudent: " << t.studentName;
             cout << "\n---------------------\n";
-
             found = true;
         }
     }
@@ -609,11 +473,9 @@ void viewRejectedTheses()
         cout << "\nNo rejected theses.\n";
 }
 
-//2nd commit - valencia
 void searchThesis()
 {
     string keyword = toLower(readLine("\nEnter Keyword: "));
-
     bool found = false;
 
     for (const auto& t : theses)
@@ -625,7 +487,6 @@ void searchThesis()
             cout << "\nTitle: "   << t.title;
             cout << "\nStudent: " << t.studentName;
             cout << "\n---------------------\n";
-
             found = true;
         }
     }
@@ -645,7 +506,6 @@ void sortByTitle()
     cout << "\nSuccessfully Sorted By Title.\n";
 }
 
-//3rd commit - valencia
 void displayStatistics()
 {
     int approved = 0;
@@ -664,10 +524,7 @@ void displayStatistics()
 
     cout << "\n===== STATISTICS =====";
     cout << "\nApproved : " << approved;
-
     cout << "\nRejected : " << rejected;
     cout << "\nPending  : " << pending;
     cout << "\nTotal    : " << theses.size() << endl;
 }
-
-// commenttttttt
