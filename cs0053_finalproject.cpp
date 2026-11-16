@@ -425,8 +425,118 @@ void approveThesis()
         cout << "\nThesis not found.\n";
 }
 
-//3rd commit - gila
-void rejectThesis()
+//1st commit - valencia
+void viewAcceptedTheses()
+{
+    cout << "\n===== ACCEPTED THESES =====\n";
+
+    bool found = false;
+
+    for(const auto& t : theses)
+    {
+        if(t.status == "Approved")
+        {
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
+            cout << "\nStudent: " << t.studentName;
+            cout << "\n---------------------";
+
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nNo accepted theses.\n";
+}
+
+void viewRejectedTheses()
+{
+    cout << "\n===== REJECTED THESES =====\n";
+
+    bool found = false;
+
+    for(const auto& t : theses)
+    {
+        if(t.status == "Rejected")
+        {
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
+            cout << "\nStudent: " << t.studentName;
+            cout << "\n---------------------";
+
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nNo rejected theses.\n";
+}
+
+//2nd commit - valencia
+void searchThesis()
+{
+    cin.ignore();
+
+    string keyword;
+
+    cout << "\nEnter Keyword: ";
+    getline(cin, keyword);
+
+    bool found = false;
+
+    for(const auto& t : theses)
+    {
+        if(t.title.find(keyword) != string::npos)
+        {
+            cout << "\nFound Thesis:";
+            cout << "\nID: " << t.thesisID;
+            cout << "\nTitle: " << t.title;
+            cout << "\nStudent: " << t.studentName;
+
+            found = true;
+        }
+    }
+
+    if(!found)
+        cout << "\nNo matching thesis found.\n";
+}
+
+void sortByTitle()
+{
+    sort(theses.begin(), theses.end(),
+        [](const Thesis& a, const Thesis& b)
+        {
+            return a.title < b.title;
+        });
+
+    cout << "\nSuccessfully Sorted By Title.\n";
+}
+
+//3rd commit - valencia
+void displayStatistics()
+{
+    int approved = 0;
+    int rejected = 0;
+    int pending = 0;
+
+    for(const auto& t : theses)
+    {
+        if(t.status == "Approved")
+            approved++;
+        else if(t.status == "Rejected")
+            rejected++;
+        else
+            pending++;
+    }
+
+    cout << "\n===== STATISTICS =====";
+    cout << "\nApproved : " << approved;
+    cout << "\nRejected : " << rejected;
+    cout << "\nPending  : " << pending;
+    cout << "\nTotal    : " << theses.size() << endl;
+}
+
+int main()
 {
     string id = readLine("\nEnter Thesis ID: ");
 
